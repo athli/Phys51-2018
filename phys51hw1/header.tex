@@ -1,0 +1,190 @@
+% motion_header.tex
+% include this before the \begin{document} part of your LaTeX source file
+%
+\usepackage{fourier,ifthen,xspace,amsmath,array}
+\usepackage[svgnames, dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{xkeyval,calc,moreverb}
+\usepackage[breakable,skins]{tcolorbox}
+\usepackage{booktabs}
+\usepackage{paralist}
+
+% booleans we need
+\newboolean{bw}
+\setboolean{bw}{false}
+\newboolean{solutions}
+
+% counters
+
+\newcounter{problemctr}
+
+% colors
+
+\definecolor{probLineColor}{rgb}{0.2,0.6,0.2}
+\definecolor{probLabelColor}{rgb}{0,0,0} % 0.2,0.2,0.7}
+\definecolor{probStatementColor}{rgb}{0,0,0}
+\definecolor{solColor}{rgb}{0.2,0.6,0.2}
+
+% lengths
+
+\newlength{\probLineWidth} \setlength{\probLineWidth}{1.25pt}
+\newlength{\solLineWidth} \setlength{\solLineWidth}{0.5pt}
+
+% oops!
+\setlength{\probLineWidth}{0pt}
+\setlength{\solLineWidth}{0pt}
+
+% commands
+
+\newcommand{\probdir}{/Users/saeta/Documents/Courses/p24/motion/prob/}
+\newcommand{\figdir}{/Users/saeta/Documents/Courses/p24/motion/figs/}
+\renewcommand{\probdir}{}
+\renewcommand{\figdir}{}
+\newcommand{\prob}[2]{% arguments are chapter then problem
+  \input{\probdir ch#1/#1P#2}
+}
+
+\newcommand{\fig}[2][2]{%
+ \vspace*{-.1in}
+  \begin{center}%
+    \includegraphics[width=#1in]{\figdir#2}
+  \end{center}%
+}
+
+\newcommand{\SolutionHead}{Solution:}
+\newcommand{\theexercise}{}
+\newcommand{\PNScolor}[1]{\ifthenelse{\boolean{bw}}{}{\color{#1}}}
+\newcommand{\SOL}[1]{\ifthenelse{\equal{#1}{0}}%
+  {
+\let\solution=\comment
+\let\endsolution=\endcomment
+\setboolean{solutions}{false}
+}%
+{\setboolean{solutions}{true}%
+\renewenvironment{solution}%
+{\par\noindent{\color{solColor}\rule{\linewidth}{\solLineWidth}%
+\ifthenelse{\equal{#1}{}}%
+{}%
+{\par\smallskip\noindent\textbf{\SolutionHead}}}}{}}
+}
+
+
+\newcommand{\val}[2]{\ensuremath{#1~\mathrm{#2}}\xspace}	% number plus unit
+\newcommand{\pval}[2]{\ensuremath{\left(#1~\mathrm{#2}}\right)\xspace}
+\newcommand{\hval}[2]{\ensuremath{#1$-$\mathrm{#2}}\xspace}
+\newcommand{\dg}[1]{\ensuremath{#1^{\circ}}\xspace}
+\newcommand{\half}{\ensuremath{\frac{1}{2}}\xspace}
+\newcommand{\ux}{\ensuremath{\mathbf{\hat{x}}}\xspace}
+\newcommand{\uy}{\ensuremath{\mathbf{\hat{y}}}\xspace}
+\newcommand{\uz}{\ensuremath{\mathbf{\hat{z}}}\xspace}
+\newcommand{\ur}{\ensuremath{\mathbf{\hat{r}}}\xspace}
+\newcommand{\vv}{\ensuremath{v}\xspace}
+
+\newcommand{\xaxis}{$x$ axis\xspace}
+\newcommand{\yaxis}{$y$ axis\xspace}
+\newcommand{\zaxis}{$z$ axis\xspace}
+\newcommand{\xyplane}{$xy$ plane\xspace}
+\newcommand{\xzplane}{$xz$ plane\xspace}
+\newcommand{\DOT}{\ensuremath{\boldsymbol{\cdot}}}
+
+\newcommand{\bo}{\ensuremath{\boldsymbol{\omega}}\xspace}
+\newcommand{\bO}{\ensuremath{\boldsymbol{\Omega}}\xspace}
+\newcommand{\VEC}[1]{\ensuremath{\mathbf{#1}}\xspace}
+\newcommand{\AU}{\ensuremath{\mathrm{A.U.}}\xspace}
+\newcommand{\DB}{\ensuremath{\mathrm{dB}}\xspace}
+\newcommand{\degC}[1]{\ensuremath{#1^{\circ}\mathrm{C}}\xspace}
+
+
+% environments
+\newcommand{\problabel}{Problem}
+\newenvironment{problem}[1][]%
+{
+  \begingroup\refstepcounter{problemctr}
+  \ifthenelse{\boolean{solutions}}%
+    {
+      {\vspace*{-10pt}\noindent\PNScolor{probLineColor}%
+        \rule[-5pt]{\linewidth}{\probLineWidth}}
+    }{}
+  \begin{list}{%
+      \PNScolor{probLabelColor}\textbf{\problabel\theexercise}%
+    }{%
+      \setlength{\labelsep}{0pt}%
+      \setlength{\leftmargin}{0in}%
+      \setlength{\labelwidth}{0pt}%
+      \setlength{\listparindent}{0pt}
+    }%
+    \PNScolor{probStatementColor}%
+	\item%
+	\ifthenelse{\equal{#1}{}}%
+      {}%
+      {\textbf{ -- #1}}%
+      \quad
+}%
+{%
+  \end{list}\endgroup%
+  \PNScolor{black}%
+}
+
+\newcommand{\PAGE}[2]{#1-#2\xspace}
+
+\newenvironment{solution}{}{}
+\newenvironment{question}{\renewcommand{\problabel}{Question}\begin{problem}}
+{\end{problem}\renewcommand{\problabel}{Problem}}
+
+\SOL{1} % show solution
+
+\makeatletter
+\newlength\rpLW
+\newlength\rpRW
+\newlength\rpgap
+\newcommand{\rprcent}{0}
+\newcommand{\rplcent}{0}
+\define@key{rp}{lwidth}{\setlength{\rpLW}{#1}  \setlength{\rpRW}{\columnwidth-#1-\rpgap}}
+\define@key{rp}{rwidth}{\setlength{\rpRW}{#1} \setlength{\rpLW}{\columnwidth-#1-\rpgap}}
+ \define@key{rp}{lvert}{\def\LeftVerticalCode{#1}}
+\define@key{rp}{rvert}{\def\RightVerticalCode{#1}}
+\define@key{rp}{gap}{\setlength{\rpgap}{#1}}
+\define@key{rp}{rcent}{\def\rprcent{#1}}
+\define@key{rp}{lcent}{\def\rplcent{#1}}
+\setkeys{rp}{rwidth=2in, lvert=c, rvert=t, gap=0.25in, rcent=0, lcent=0}
+\makeatother
+
+\newcommand\rp[3][]{%
+  \setkeys{rp}{#1}
+  \noindent \parbox[\LeftVerticalCode]{\rpLW}%
+  {\ifthenelse{\equal{\rplcent}{0}}%
+  {#2}%
+  { \begin{center}#2\end{center} }%
+  }%
+  \hspace*{\rpgap}%
+  \parbox[\RightVerticalCode]{\rpRW}%
+  {\ifthenelse{\equal{0}{\rprcent}}%
+  {#3}%
+  {\begin{center} #3 \end{center}}}%
+}
+
+\newcommand{\DD}{\ensuremath{d}}		% differential d without leading space
+\newcommand{\dd}{\ensuremath{\,\DD}}	% differential d
+
+\newcommand{\deriv}[3][]{\ensuremath{%
+	\ifthenelse{\equal{#1}{}}{\frac{\DD #2}{\DD #3}}
+	{\frac{\DD^{#1} #2}{\DD #3^{#1}}}}}
+
+\newcommand{\pd}[3][]{\ensuremath{%
+	\ifthenelse{\equal{#1}{}}{\frac{\partial #2}{\partial #3}}
+	{\partial #2 / \partial #3}}}
+
+\newcommand{\so}{\ensuremath{\qquad\Longrightarrow\qquad}}
+\newcommand{\uth}{\ensuremath{\boldsymbol{\hat{\theta}}}\xspace}
+\newcommand{\eref}[2][]{%
+	\ifthenelse{\equal{#1}{}}%
+	{Eq.~(\ref{eq:#2})}%
+	{Equation~(\ref{eq:#2})}\xspace}
+\newcommand{\cross}{\ensuremath{\times}\xspace}
+\newcommand{\into}{\ensuremath{\hat{\otimes}}}	% direction symbols
+\newcommand{\outof}{\ensuremath{\hat{\odot}}}
+\newcommand{\ds}{\displaystyle}
+
+\newcommand{\xdd}{\ensuremath{\ddot{x}}\xspace}
+\newcommand{\thdd}{\ensuremath{\ddot{\theta}}\xspace}
