@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  19 SEP 2018 10:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  21 SEP 2018 15:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -841,7 +841,7 @@ Package pdftex.def Info: Rutherford.png  used on input line 88.
 Here is how much of TeX's memory you used:
  24492 strings out of 492649
  613786 string characters out of 6129622
- 829561 words of memory out of 5000000
+ 830561 words of memory out of 5000000
  27908 multiletter control sequences out of 15000+600000
  16391 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -856,7 +856,7 @@ mri.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols
 /msam10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/palatino/uplb8a
 .pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></
 usr/local/texlive/2018/texmf-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on HW3.pdf (6 pages, 302486 bytes).
+Output written on HW3.pdf (6 pages, 302503 bytes).
 PDF statistics:
  68 PDF objects out of 1000 (max. 8388607)
  46 compressed objects within 1 object stream
